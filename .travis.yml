@@ -1,2 +1,11 @@
-language: java
-jdk: openjdk8
+---
+services:
+  - docker
+
+before_install:
+  - 'sudo docker pull maven:latest'
+  - 'sudo docker pull ansible/ansible:latest'
+
+script:
+  - docker run -it -v $(pwd):/tmp/project maven cd /tmp/project/ && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - docker run -it -v $(pwd):/tmp/project ansible/ansible:latest cd /tmp/project/ansible && ansible-playbook test.yaml
