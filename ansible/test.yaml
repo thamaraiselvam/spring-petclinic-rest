@@ -1,0 +1,9 @@
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: getting hostname of localmachine
+      command: hostname
+      register: hostname
+    - name: print hostname
+      debug:
+        msg: "{{hostname}}"
