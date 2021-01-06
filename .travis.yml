@@ -1,14 +1,17 @@
 ---
+sudo: required
+dist: bionic
 language: java
 
-services:
-  - docker
-
 before_install:
-  - 'sudo docker pull williamyeh/ansible:ubuntu18.04'
+  - sudo apt update
+  - sudo apt install software-properties-common
+  - sudo apt-add-repository --yes --update ppa:ansible/ansible
+  - sudo apt install ansible
 
 script:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
   - echo ${SSH_PRIVATE_KEY} | base64 --decode > ansible/mykey
-  - docker run -it -v $(pwd):/tmp/spring-petclinic-rest williamyeh/ansible:ubuntu18.04 bash -c " cd /tmp/spring-petclinic-rest/ansible && ansible-playbook backend_service.yaml -v"
-  - rm ansible/mykey
+  - chmod 600 ansible/mykey
+  - pushd ansible && ansible-playbook service.yaml
+  - popd && rm ansible/mykey
