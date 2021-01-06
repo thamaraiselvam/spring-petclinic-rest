@@ -8,6 +8,11 @@ target/*
 .vscode
 generated/
 
+
+# project unnecessary files
+ansible/backend_service.retry
+ansible/mykey
+
 # Easier branch switching
 springboot-petclinic-client/
 springboot-petclinic-server/

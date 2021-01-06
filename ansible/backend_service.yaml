@@ -3,20 +3,23 @@
   gather_facts: false
   vars_files:
     - values.yaml
+  vars:
+    remote_path: /home/ubuntu/spring-petclinic-rest/target
+    local_ansible_path: /tmp/spring-petclinic-rest
   tasks:
     - block:
       - name: Make sure destination dir exists
         file:
-          path: "{{dest_root}}/spring-petclinic-rest/target/"
+          path: "{{remote_path}}"
           state: directory
           recurse: yes
       - name: Copy jar file to bin directory
         copy:
-          src: "/tmp/spring-petclinic-rest/target/spring-petclinic-rest-{{service_version}}.jar"
-          dest: "{{dest_root}}/spring-petclinic-rest/target/spring-petclinic-rest-{{service_version}}.jar"
+          src: "{{local_ansible_path}}/target/spring-petclinic-rest-{{service_version}}.jar"
+          dest: "{{remote_path}}/spring-petclinic-rest-{{service_version}}.jar"
       - name: Create service file
         template:
-          src: /tmp/spring-petclinic-rest/ansible/templates/backend_service.j2
+          src: "{{local_ansible_path}}/ansible/templates/backend_service.j2"
           dest: /etc/systemd/system/petclinic-rest.service
           mode: 0644
 
