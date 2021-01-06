@@ -7,7 +7,7 @@ before_install:
   - 'sudo docker pull williamyeh/ansible:ubuntu18.04'
 
 script:
-  - echo ${SSH_PRIVATE_KEY} | base64 -D > ansible/mykey
+  - echo ${SSH_PRIVATE_KEY} | base64 --decode > ansible/mykey
   - docker run -it -v $(pwd):/tmp/spring-petclinic-rest maven bash -c " cd /tmp/spring-petclinic-rest && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
   - docker run -it -v $(pwd):/tmp/spring-petclinic-rest williamyeh/ansible:ubuntu18.04 bash -c " cd /tmp/spring-petclinic-rest/ansible && ansible-playbook backend_service.yaml -v"
   - rm ansible/mykey
