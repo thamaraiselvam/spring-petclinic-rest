@@ -5,7 +5,7 @@ target/*
 .idea
 *.iml
 /target
-
+.vscode
 generated/
 
 # Easier branch switching
