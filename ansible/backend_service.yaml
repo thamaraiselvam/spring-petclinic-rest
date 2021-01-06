@@ -4,11 +4,16 @@
   vars_files:
     - values.yaml
   tasks:
-    - name: Build jar file for rest service
-      shell: |
-        cd /tmp/spring-petclinic-rest
-        mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
     - block:
+      - name: Make sure destination dir exists
+        file:
+          path: "{{dest_root}}/spring-petclinic-rest/target/"
+          state: directory
+          recurse: yes
+      - name: Copy jar file to bin directory
+        copy:
+          src: "/tmp/spring-petclinic-rest/target/spring-petclinic-rest-{{service_version}}.jar"
+          dest: "{{dest_root}}/spring-petclinic-rest/target/spring-petclinic-rest-{{service_version}}.jar"
       - name: Create service file
         template:
           src: /tmp/spring-petclinic-rest/ansible/templates/backend_service.j2
