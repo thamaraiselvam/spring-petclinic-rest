@@ -7,5 +7,5 @@ before_install:
   - 'sudo docker pull williamyeh/ansible:ubuntu18.04'
 
 script:
-  - docker run -it -v $(pwd):/tmp/project maven bash -c " cd /tmp/project/ && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
-  - docker run -it -v $(pwd):/tmp/project williamyeh/ansible:ubuntu18.04 bash -c " cd /tmp/project/ansible && ansible-playbook test.yaml"
+  - docker run -it -v $(pwd):/tmp maven bash -c " cd /tmp && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
+  - docker run -it -v $(pwd):/tmp williamyeh/ansible:ubuntu18.04 bash -c " cd /tmp/spring-petclinic-rest/ansible && ansible-playbook backend_service.yaml -v"
