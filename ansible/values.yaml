@@ -1,3 +1,3 @@
-local_ansible_path: /home/travis/build/thamaraiselvam/petclinic-rest-server
-remote_serve_path: /home/ubuntu/petclinic-rest-server/target
+local_ansible_path: /home/travis/build/thamaraiselvam/spring-petclinic-rest
+remote_serve_path: /home/ubuntu/spring-petclinic-rest/target
 service_version: 2.2.5

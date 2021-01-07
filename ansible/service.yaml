@@ -12,8 +12,8 @@
           recurse: yes
       - name: Copy jar file to bin directory
         copy:
-          src: "{{local_ansible_path}}/target/petclinic-rest-server-{{service_version}}.jar"
-          dest: "{{remote_serve_path}}/petclinic-rest-server-{{service_version}}.jar"
+          src: "{{local_ansible_path}}/target/spring-petclinic-rest-{{service_version}}.jar"
+          dest: "{{remote_serve_path}}/spring-petclinic-rest-{{service_version}}.jar"
       - name: Create service file
         template:
           src: "{{local_ansible_path}}/ansible/templates/backend_service.j2"
